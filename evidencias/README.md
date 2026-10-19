@@ -6,7 +6,7 @@
 | URL de repositorio Bitbucket | Público y verificado vía API | [Bitbucket](https://bitbucket.org/aarontimana04-devops/bitbucket_terraform_demo/src/main/) |
 | Acceso de lectura al docente | Lectura pública disponible por solicitud del alumno | Repositorio público; no se realizó invitación individual |
 | Estructura del proyecto | Implementada | Archivos de la raíz y `app/handler.py` |
-| Pipeline con validaciones, plan y apply-production ejecutado | Pendiente: Bitbucket exige verificación en dos pasos | No hay ejecución remota ni captura de éxito |
+| Pipeline con validaciones, plan y apply-production ejecutado | Pendiente: sincronizar YAML OIDC y ejecutar el pipeline | No hay ejecución remota ni captura de éxito |
 | Bucket S3 y objeto tf-lambda-demo/terraform.tfstate | Creado y objeto remoto verificado | [Metadatos S3](aws/s3-state-metadata.json) y [captura](02-s3-estado.png) |
 | Lambda en AWS | Active; LastUpdateStatus Successful | [Estado real](aws/lambda-status.json); captura pendiente |
 | API AWS funcionando | HTTP 200 y Hello, UTEC! | [Respuesta real](aws/api-response.json) y [captura](04-api.png) |
@@ -41,4 +41,4 @@ Guardar los enlaces al pipeline y al repositorio Bitbucket, así como la fecha d
 
 Importado desde GitHub a `aarontimana04-devops/bitbucket_terraform_demo`, rama `main`, con `is_private=false` confirmado por la API pública de Bitbucket. Su workspace fue creado y confirmado por el alumno.
 
-Bitbucket muestra: `Two-step verification is required to enable Deployments`. El usuario debe registrar su propio segundo factor antes de continuar.
+El usuario activó la verificación en dos pasos y confirmó el correo. El YAML OIDC actualizado está publicado en GitHub, pero todavía no se sincronizó al repositorio Bitbucket: su editor web no está cargando correctamente durante el control del navegador. No hay ejecución de pipeline acreditada.
