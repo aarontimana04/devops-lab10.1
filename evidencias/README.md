@@ -2,7 +2,7 @@
 
 | Entregable | Estado verificado | Evidencia |
 |---|---|---|
-| Repositorio GitHub solicitado | Código preparado para publicación | [Repositorio](https://github.com/aarontimana04/devops-lab10.1) |
+| Repositorio GitHub solicitado | Publicado y verificado en main | [Repositorio](https://github.com/aarontimana04/devops-lab10.1) |
 | URL de repositorio Bitbucket | Pendiente: iniciar sesión e identificar workspace | Sin URL confirmada |
 | Acceso de lectura al docente | Pendiente: falta su usuario Bitbucket | Sin invitación realizada |
 | Estructura del proyecto | Implementada | Archivos de la raíz y `app/handler.py` |
