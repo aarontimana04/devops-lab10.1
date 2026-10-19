@@ -2,7 +2,7 @@
 
 Implementación basada en la [guía del curso UTEC](https://github.com/utec-devops-2026/laboratorios/blob/main/laboratorio_IaC/laboratorio_terraform_bitbucket.md).
 
-**Estado:** código y validaciones locales aprobados; despliegue real AWS ejecutado con Terraform (8 recursos). [API verificada con HTTP 200](https://4ldgqb66wc.execute-api.us-east-1.amazonaws.com/hello?name=UTEC). [Repositorio público Bitbucket](https://bitbucket.org/aarontimana04-devops/bitbucket_terraform_demo/src/main/) creado. La verificación en dos pasos ya está activa. El YAML OIDC ya está sincronizado a Bitbucket. Las capturas de S3, Lambda y API están guardadas. Falta habilitar y ejecutar Pipelines y capturar su resultado. Este GitHub es la copia de entrega solicitada.
+**Estado:** código y validaciones locales aprobados; despliegue real AWS ejecutado con Terraform (8 recursos). [API verificada con HTTP 200](https://4ldgqb66wc.execute-api.us-east-1.amazonaws.com/hello?name=UTEC). [Repositorio público Bitbucket](https://bitbucket.org/aarontimana04-devops/bitbucket_terraform_demo/src/main/) creado. La verificación en dos pasos ya está activa. El YAML OIDC ya está sincronizado a Bitbucket. Las capturas de S3, Lambda y API están guardadas. El [pipeline #1](https://bitbucket.org/aarontimana04-devops/bitbucket_terraform_demo/pipelines/results/1) aprobó fmt-check, validate, lint-python y plan; espera la aprobación manual de apply-production y su captura final. Este GitHub es la copia de entrega solicitada.
 
 ## Archivos
 

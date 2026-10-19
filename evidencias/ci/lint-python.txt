@@ -1,0 +1,138 @@
++ umask 000
+
++ export GIT_LFS_SKIP_SMUDGE=1
+
++ retry 6 git clone -n https://x-token-auth:$REPOSITORY_OAUTH_ACCESS_TOKEN@bitbucket.org/$BITBUCKET_REPO_FULL_NAME.git $BUILD_DIR
+Cloning into '/opt/atlassian/pipelines/agent/build'...
+
++ git checkout e2dd8f8a4dd37d43e061365a798c1b0be327abc5
+Note: switching to 'e2dd8f8a4dd37d43e061365a798c1b0be327abc5'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at e2dd8f8 feat(ci): configure scoped AWS OIDC and synchronize lab evidence
+
++ git config user.name bitbucket-pipelines
+
++ git config user.email commits-noreply@bitbucket.org
+
++ git config push.default current
+
++ git config http.${BITBUCKET_GIT_HTTP_ORIGIN}.proxy http://localhost:29418/
+
++ git remote set-url origin http://bitbucket.org/$BITBUCKET_REPO_FULL_NAME
+
++ git reflog expire --expire=all --all
+
++ echo ".bitbucket/pipelines/generated" >> .git/info/exclude
+
++ chmod 777 $BUILD_DIR
+
+
+Cache "pip: ~/.cache/pip": Downloading
+Cache "pip: ~/.cache/pip": Not found
+
+Default variables:
+    BITBUCKET_BUILD_NUMBER
+    BITBUCKET_CLONE_DIR
+    BITBUCKET_COMMIT
+    BITBUCKET_GIT_HTTP_ORIGIN
+    BITBUCKET_GIT_SSH_ORIGIN
+    BITBUCKET_PACKAGES_TOKEN
+    BITBUCKET_PACKAGES_USERNAME
+    BITBUCKET_PARALLEL_STEP
+    BITBUCKET_PARALLEL_STEP_COUNT
+    BITBUCKET_PIPELINES_VARIABLES_PATH
+    BITBUCKET_PIPELINE_UUID
+    BITBUCKET_PROJECT_KEY
+    BITBUCKET_PROJECT_UUID
+    BITBUCKET_REPO_FULL_NAME
+    BITBUCKET_REPO_IS_PRIVATE
+    BITBUCKET_REPO_OWNER
+    BITBUCKET_REPO_OWNER_UUID
+    BITBUCKET_REPO_SLUG
+    BITBUCKET_REPO_UUID
+    BITBUCKET_SSH_KEY_FILE
+    BITBUCKET_STEP_OIDC_TOKEN
+    BITBUCKET_STEP_RUN_NUMBER
+    BITBUCKET_STEP_TRIGGERER_UUID
+    BITBUCKET_STEP_UUID
+    BITBUCKET_TEST_METADATA_FILE_PATH
+    BITBUCKET_WORKSPACE
+    BITBUCKET_WORKSPACE_UUID
+    CI
+    DOCKER_HOST
+
+Images used:
+    build : docker.io/library/python@sha256:e88e9763f943ec1834f992a4b51e0f24500486803e8bc534e5767af9ea65f6ce
+
+Runtime:
+    cloud:
+        version: 2
+        platform: linux
+        arch: x86
+
++ pip install flake8==7.3.0
+Collecting flake8==7.3.0
+  Downloading flake8-7.3.0-py2.py3-none-any.whl.metadata (3.8 kB)
+Collecting mccabe<0.8.0,>=0.7.0 (from flake8==7.3.0)
+  Downloading mccabe-0.7.0-py2.py3-none-any.whl.metadata (5.0 kB)
+Collecting pycodestyle<2.15.0,>=2.14.0 (from flake8==7.3.0)
+  Downloading pycodestyle-2.14.0-py2.py3-none-any.whl.metadata (4.5 kB)
+Collecting pyflakes<3.5.0,>=3.4.0 (from flake8==7.3.0)
+  Downloading pyflakes-3.4.0-py2.py3-none-any.whl.metadata (3.5 kB)
+Downloading flake8-7.3.0-py2.py3-none-any.whl (57 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.9/57.9 kB 2.6 MB/s eta 0:00:00
+Downloading mccabe-0.7.0-py2.py3-none-any.whl (7.3 kB)
+Downloading pycodestyle-2.14.0-py2.py3-none-any.whl (31 kB)
+Downloading pyflakes-3.4.0-py2.py3-none-any.whl (63 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.6/63.6 kB 11.0 MB/s eta 0:00:00
+Installing collected packages: pyflakes, pycodestyle, mccabe, flake8
+Successfully installed flake8-7.3.0 mccabe-0.7.0 pycodestyle-2.14.0 pyflakes-3.4.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 24.0 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip
+
++ flake8 app/ tests/ --max-line-length=100 --statistics
+
++ python -m unittest discover -s tests -v
+test_nombre_con_unicode (test_handler.HandlerTests.test_nombre_con_unicode) ... ok
+test_nombre_utec (test_handler.HandlerTests.test_nombre_utec) ... ok
+test_query_nulo_de_api_gateway (test_handler.HandlerTests.test_query_nulo_de_api_gateway) ... ok
+test_sin_query (test_handler.HandlerTests.test_sin_query) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+
+Assembling contents of new cache 'pip'
+ldd (Debian GLIBC 2.41-12+deb13u4) 2.41
+Cache "pip: ~/.cache/pip": Compressing
+Cache "pip: ~/.cache/pip": Compressed in 0 seconds
+Cache "pip: ~/.cache/pip": Uploading 254.3 KiB
+Cache "pip: ~/.cache/pip": Uploaded in 0 seconds
+
+Searching for test report files using patterns [**failsafe-reports/**.xml, **TestResults/**.xml, **test-reports/**.xml, **test-results/**.xml, **surefire-reports/**.xml] down to a depth of 8
+Ignoring patterns during search [**.git/**]
+Finished scanning for test reports. Found 0 test report files in 0 seconds.
+Merged test suites, total number tests is 0, with 0 failures and 0 errors in 0 seconds.
+
+Uploading step metrics of 673 B.
+Successfully uploaded step metrics in 0 seconds.
+
+

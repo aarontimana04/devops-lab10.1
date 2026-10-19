@@ -1,0 +1,104 @@
++ umask 000
+
++ export GIT_LFS_SKIP_SMUDGE=1
+
++ retry 6 git clone -n https://x-token-auth:$REPOSITORY_OAUTH_ACCESS_TOKEN@bitbucket.org/$BITBUCKET_REPO_FULL_NAME.git $BUILD_DIR
+Cloning into '/opt/atlassian/pipelines/agent/build'...
+
++ git checkout e2dd8f8a4dd37d43e061365a798c1b0be327abc5
+Note: switching to 'e2dd8f8a4dd37d43e061365a798c1b0be327abc5'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at e2dd8f8 feat(ci): configure scoped AWS OIDC and synchronize lab evidence
+
++ git config user.name bitbucket-pipelines
+
++ git config user.email commits-noreply@bitbucket.org
+
++ git config push.default current
+
++ git config http.${BITBUCKET_GIT_HTTP_ORIGIN}.proxy http://localhost:29418/
+
++ git remote set-url origin http://bitbucket.org/$BITBUCKET_REPO_FULL_NAME
+
++ git reflog expire --expire=all --all
+
++ echo ".bitbucket/pipelines/generated" >> .git/info/exclude
+
++ chmod 777 $BUILD_DIR
+
+
+Default variables:
+    BITBUCKET_BUILD_NUMBER
+    BITBUCKET_CLONE_DIR
+    BITBUCKET_COMMIT
+    BITBUCKET_GIT_HTTP_ORIGIN
+    BITBUCKET_GIT_SSH_ORIGIN
+    BITBUCKET_PACKAGES_TOKEN
+    BITBUCKET_PACKAGES_USERNAME
+    BITBUCKET_PARALLEL_STEP
+    BITBUCKET_PARALLEL_STEP_COUNT
+    BITBUCKET_PIPELINES_VARIABLES_PATH
+    BITBUCKET_PIPELINE_UUID
+    BITBUCKET_PROJECT_KEY
+    BITBUCKET_PROJECT_UUID
+    BITBUCKET_REPO_FULL_NAME
+    BITBUCKET_REPO_IS_PRIVATE
+    BITBUCKET_REPO_OWNER
+    BITBUCKET_REPO_OWNER_UUID
+    BITBUCKET_REPO_SLUG
+    BITBUCKET_REPO_UUID
+    BITBUCKET_SSH_KEY_FILE
+    BITBUCKET_STEP_OIDC_TOKEN
+    BITBUCKET_STEP_RUN_NUMBER
+    BITBUCKET_STEP_TRIGGERER_UUID
+    BITBUCKET_STEP_UUID
+    BITBUCKET_TEST_METADATA_FILE_PATH
+    BITBUCKET_WORKSPACE
+    BITBUCKET_WORKSPACE_UUID
+    CI
+    DOCKER_HOST
+
+Images used:
+    build : docker.io/hashicorp/terraform@sha256:5820b87995595425074f881500a037b0ccd41158d0d9b44d78f5f120612f2d3d
+
+Runtime:
+    cloud:
+        version: 2
+        platform: linux
+        arch: x86
+
++ terraform --version
+Terraform v1.11.4
+on linux_amd64
++ provider registry.terraform.io/hashicorp/archive v2.8.1
++ provider registry.terraform.io/hashicorp/aws v5.100.0
+
+Your version of Terraform is out of date! The latest version
+is 1.16.6. You can update by downloading from https://developer.hashicorp.com/terraform/install
+
++ terraform fmt -check -recursive -diff
+
+Searching for test report files using patterns [**failsafe-reports/**.xml, **TestResults/**.xml, **test-reports/**.xml, **test-results/**.xml, **surefire-reports/**.xml] down to a depth of 8
+Ignoring patterns during search [**.git/**]
+Finished scanning for test reports. Found 0 test report files in 0 seconds.
+Merged test suites, total number tests is 0, with 0 failures and 0 errors in 0 seconds.
+
+Uploading step metrics of 33 B.
+Successfully uploaded step metrics in 0 seconds.
+
+
