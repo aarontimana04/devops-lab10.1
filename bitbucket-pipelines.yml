@@ -1,7 +1,8 @@
 # Bitbucket Pipelines: Lambda Python + API Gateway v2 con Terraform
 #
-# Variables necesarias (Repository settings → Pipelines → Repository variables):
-#   AWS_ACCESS_KEY_ID (secured), AWS_SECRET_ACCESS_KEY (secured), AWS_DEFAULT_REGION
+# Autenticación AWS del pipeline:
+#   Acceso AWS mediante OIDC; no requiere claves AWS permanentes.
+#   Role limitado al repositorio y a los recursos indicados en bootstrap/.
 # Estado remoto: bucket S3 definido en backend.hcl (creado a mano antes del primer pipeline)
 
 image: hashicorp/terraform:1.11
@@ -41,9 +42,14 @@ definitions:
     # ── Plan: conecta al backend S3 y genera tfplan + lambda.zip ─────────────
     - step: &plan
         name: plan
+        oidc: true
         caches:
           - terraform
         script:
+          - export AWS_DEFAULT_REGION=us-east-1
+          - export AWS_ROLE_ARN=arn:aws:iam::597088017869:role/bitbucket-lab10-terraform
+          - export AWS_WEB_IDENTITY_TOKEN_FILE=/tmp/bitbucket-oidc-token
+          - printf '%s' "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
           - terraform init -input=false -reconfigure -backend-config=backend.hcl
           - terraform plan -input=false -out=tfplan
           - terraform show -no-color tfplan > tfplan.txt   # versión legible para revisar en la UI
@@ -55,9 +61,14 @@ definitions:
     # ── Apply: aplica exactamente el plan revisado ───────────────────────────
     - step: &apply
         name: apply
+        oidc: true
         caches:
           - terraform
         script:
+          - export AWS_DEFAULT_REGION=us-east-1
+          - export AWS_ROLE_ARN=arn:aws:iam::597088017869:role/bitbucket-lab10-terraform
+          - export AWS_WEB_IDENTITY_TOKEN_FILE=/tmp/bitbucket-oidc-token
+          - printf '%s' "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
           - terraform init -input=false -reconfigure -backend-config=backend.hcl
           - terraform apply -input=false tfplan
           - terraform output
@@ -72,9 +83,14 @@ definitions:
     # ── Destroy: elimina Lambda, API Gateway y IAM role (no el bucket) ───────
     - step: &destroy
         name: destroy
+        oidc: true
         caches:
           - terraform
         script:
+          - export AWS_DEFAULT_REGION=us-east-1
+          - export AWS_ROLE_ARN=arn:aws:iam::597088017869:role/bitbucket-lab10-terraform
+          - export AWS_WEB_IDENTITY_TOKEN_FILE=/tmp/bitbucket-oidc-token
+          - printf '%s' "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
           - terraform init -input=false -reconfigure -backend-config=backend.hcl
           - terraform destroy -input=false -auto-approve
 

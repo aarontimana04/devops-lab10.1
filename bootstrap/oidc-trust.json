@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::597088017869:oidc-provider/api.bitbucket.org/2.0/workspaces/aarontimana04-devops/pipelines-config/identity/oidc"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "api.bitbucket.org/2.0/workspaces/aarontimana04-devops/pipelines-config/identity/oidc:aud": "ari:cloud:bitbucket::workspace/3579986a-c153-4a93-a420-831b376b772e"
+        },
+        "StringLike": {
+          "api.bitbucket.org/2.0/workspaces/aarontimana04-devops/pipelines-config/identity/oidc:sub": "{5e108c34-c771-498a-8baf-0ccb1ce63735}:*"
+        }
+      }
+    }
+  ]
+}

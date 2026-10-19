@@ -66,7 +66,7 @@ Los resultados están en [evidencias/local](evidencias/local). Son validaciones 
    terraform plan
    ```
 
-4. Configurar `AWS_ACCESS_KEY_ID` y `AWS_SECRET_ACCESS_KEY` como **Repository variables Secured** en Bitbucket; `AWS_DEFAULT_REGION=us-east-1` sin Secured. Si las credenciales son temporales, añadir también `AWS_SESSION_TOKEN` como Secured y renovarlas antes de que expiren. El step `plan` necesita estas variables, por eso no basta con configurarlas solo en Deployment variables. No escribirlas en Git ni en capturas.
+4. El acceso AWS de este repositorio usa **OIDC**, con un role limitado al UUID del repositorio y los recursos del laboratorio. No requiere guardar claves AWS en Repository variables. La guía usa claves Secured; esta adaptación está documentada en [bootstrap/README.md](bootstrap/README.md).
 5. Revisar `tfplan.txt` y aprobar **Deploy** en `apply-production`. El apply aplica el mismo `tfplan` generado previamente y recibe `lambda.zip` como artifact. El smoke test guarda `hello-aws.json` y verifica `Hello, UTEC!`.
 6. Capturar el pipeline exitoso, el objeto S3 `tf-lambda-demo/terraform.tfstate`, Lambda y la respuesta HTTP real. Agregar las capturas a `evidencias/` y enlazarlas en el índice.
 7. Dar acceso de lectura al usuario Bitbucket del docente indicado en clase.
