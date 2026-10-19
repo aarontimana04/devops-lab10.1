@@ -1,0 +1,109 @@
+# Bitbucket Pipelines: Lambda Python + API Gateway v2 con Terraform
+#
+# Variables necesarias (Repository settings → Pipelines → Repository variables):
+#   AWS_ACCESS_KEY_ID (secured), AWS_SECRET_ACCESS_KEY (secured), AWS_DEFAULT_REGION
+# Estado remoto: bucket S3 definido en backend.hcl (creado a mano antes del primer pipeline)
+
+image: hashicorp/terraform:1.11
+
+definitions:
+  caches:
+    terraform: .terraform            # providers descargados por terraform init (aws ≈ 100 MB comprimido)
+
+  steps:
+    # ── Formato canónico HCL (no necesita init ni credenciales) ──────────────
+    - step: &fmt-check
+        name: fmt-check
+        script:
+          - terraform --version
+          - terraform fmt -check -recursive -diff
+
+    # ── Validación de sintaxis y referencias (sin backend → sin credenciales) ─
+    - step: &validate
+        name: validate
+        caches:
+          - terraform
+        script:
+          - terraform init -input=false -backend=false
+          - terraform validate
+
+    # ── Lint del handler Python ──────────────────────────────────────────────
+    - step: &lint-python
+        name: lint-python
+        image: python:3.11-slim
+        caches:
+          - pip
+        script:
+          - pip install flake8==7.3.0
+          - flake8 app/ tests/ --max-line-length=100 --statistics
+          - python -m unittest discover -s tests -v
+
+    # ── Plan: conecta al backend S3 y genera tfplan + lambda.zip ─────────────
+    - step: &plan
+        name: plan
+        caches:
+          - terraform
+        script:
+          - terraform init -input=false -reconfigure -backend-config=backend.hcl
+          - terraform plan -input=false -out=tfplan
+          - terraform show -no-color tfplan > tfplan.txt   # versión legible para revisar en la UI
+        artifacts:
+          - tfplan
+          - tfplan.txt
+          - lambda.zip                  # generado por archive_file durante el plan
+
+    # ── Apply: aplica exactamente el plan revisado ───────────────────────────
+    - step: &apply
+        name: apply
+        caches:
+          - terraform
+        script:
+          - terraform init -input=false -reconfigure -backend-config=backend.hcl
+          - terraform apply -input=false tfplan
+          - terraform output
+          # Smoke test contra el endpoint real
+          - apk add --no-cache curl
+          - export API_URL=$(terraform output -raw api_url)
+          - curl -sf --retry 5 --retry-delay 3 --retry-all-errors "$API_URL?name=UTEC" -o hello-aws.json && cat hello-aws.json
+          - grep -q "Hello, UTEC!" hello-aws.json
+        artifacts:
+          - hello-aws.json
+
+    # ── Destroy: elimina Lambda, API Gateway y IAM role (no el bucket) ───────
+    - step: &destroy
+        name: destroy
+        caches:
+          - terraform
+        script:
+          - terraform init -input=false -reconfigure -backend-config=backend.hcl
+          - terraform destroy -input=false -auto-approve
+
+pipelines:
+  # Los PR solo validan, nunca tocan AWS
+  pull-requests:
+    '**':
+      - parallel:
+          - step: *fmt-check
+          - step: *validate
+          - step: *lint-python
+
+  branches:
+    main:
+      - parallel:
+          - step: *fmt-check
+          - step: *validate
+          - step: *lint-python
+      - step: *plan
+      - stage:
+          name: apply-production
+          deployment: production
+          trigger: manual
+          steps:
+            - step: *apply
+
+  # Pipeline manual (Pipelines → Run pipeline → Custom) para limpiar AWS al terminar el laboratorio
+  custom:
+    destroy:
+      - step:
+          <<: *destroy
+          deployment: production

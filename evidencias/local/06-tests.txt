@@ -1,0 +1,13 @@
+UTC: 2026-10-19T01:57:13.834875+00:00
+$ python -m unittest discover -s tests -v
+test_nombre_con_unicode (test_handler.HandlerTests.test_nombre_con_unicode) ... ok
+test_nombre_utec (test_handler.HandlerTests.test_nombre_utec) ... ok
+test_query_nulo_de_api_gateway (test_handler.HandlerTests.test_query_nulo_de_api_gateway) ... ok
+test_sin_query (test_handler.HandlerTests.test_sin_query) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+
+Exit code: 0

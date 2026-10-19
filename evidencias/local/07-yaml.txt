@@ -1,0 +1,3 @@
+YAML parseado con PyYAML 6.0.3
+3 steps en paralelo, plan y stage apply-production manual con deployment production.
+Esta comprobacion local no reemplaza el validador de Bitbucket ni una ejecucion real.

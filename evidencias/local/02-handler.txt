@@ -1,0 +1,11 @@
+UTC: 2026-10-19T01:57:11.471828+00:00
+$ python app/handler.py
+{
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"message\": \"Hello, UTEC!\", \"source\": \"Lambda puro en Python\"}"
+}
+
+Exit code: 0
