@@ -6,10 +6,10 @@
 | URL de repositorio Bitbucket | Público y verificado vía API | [Bitbucket](https://bitbucket.org/aarontimana04-devops/bitbucket_terraform_demo/src/main/) |
 | Acceso de lectura al docente | Lectura pública disponible por solicitud del alumno | Repositorio público; no se realizó invitación individual |
 | Estructura del proyecto | Implementada | Archivos de la raíz y `app/handler.py` |
-| Pipeline con validaciones, plan y apply-production ejecutado | Pendiente: sincronizar YAML OIDC y ejecutar el pipeline | No hay ejecución remota ni captura de éxito |
-| Bucket S3 y objeto tf-lambda-demo/terraform.tfstate | Creado y objeto remoto verificado | [Metadatos S3](aws/s3-state-metadata.json) y [captura](02-s3-estado.png) |
+| Pipeline con validaciones, plan y apply-production ejecutado | YAML OIDC sincronizado; falta habilitar Pipelines y ejecutarlo | No hay ejecución remota ni captura de éxito |
+| Bucket S3 y objeto tf-lambda-demo/terraform.tfstate | Creado y objeto remoto verificado | [Metadatos S3](aws/s3-state-metadata.json) y [captura](https://github.com/aarontimana04/devops-lab10.1/blob/main/evidencias/02-s3-estado.png) |
 | Lambda en AWS | Active; LastUpdateStatus Successful | [Estado real](aws/lambda-status.json); captura pendiente |
-| API AWS funcionando | HTTP 200 y Hello, UTEC! | [Respuesta real](aws/api-response.json) y [captura](04-api.png) |
+| API AWS funcionando | HTTP 200 y Hello, UTEC! | [Respuesta real](aws/api-response.json) y [captura](https://github.com/aarontimana04/devops-lab10.1/blob/main/evidencias/04-api.png) |
 | Validaciones locales adicionales | Aprobadas | [Logs locales](local) |
 
 ## Resultados locales
@@ -41,4 +41,4 @@ Guardar los enlaces al pipeline y al repositorio Bitbucket, así como la fecha d
 
 Importado desde GitHub a `aarontimana04-devops/bitbucket_terraform_demo`, rama `main`, con `is_private=false` confirmado por la API pública de Bitbucket. Su workspace fue creado y confirmado por el alumno.
 
-El usuario activó la verificación en dos pasos y confirmó el correo. El YAML OIDC actualizado está publicado en GitHub, pero todavía no se sincronizó al repositorio Bitbucket: su editor web no está cargando correctamente durante el control del navegador. No hay ejecución de pipeline acreditada.
+El usuario activó la verificación en dos pasos y confirmó el correo. El YAML OIDC y la documentación se sincronizaron en Bitbucket mediante la integración Atlassian, commit `e2dd8f8a4dd37d43e061365a798c1b0be327abc5`. La solicitud de ejecución devolvió HTTP 404 y la lista de pipelines está vacía; falta habilitar Pipelines en la configuración del repositorio. No hay ejecución acreditada. Las imágenes se enlazan a GitHub, donde sí están publicadas.
