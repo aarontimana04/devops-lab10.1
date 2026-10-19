@@ -1,0 +1,67 @@
+{
+  "values": [
+    {
+      "uuid": "{dc3a8ce4-0f43-453e-ad6a-ab1a3a3e7a1b}",
+      "name": "fmt-check",
+      "state": {
+        "name": "COMPLETED",
+        "result": {
+          "name": "SUCCESSFUL"
+        }
+      },
+      "started_on": "2026-10-19T02:38:56.062515688Z",
+      "completed_on": "2026-10-19T02:39:00.176792206Z"
+    },
+    {
+      "uuid": "{7f0b8b86-d6d3-422b-9b7d-3eda7471a8e5}",
+      "name": "validate",
+      "state": {
+        "name": "COMPLETED",
+        "result": {
+          "name": "SUCCESSFUL"
+        }
+      },
+      "started_on": "2026-10-19T02:38:55.929030977Z",
+      "completed_on": "2026-10-19T02:39:52.216851156Z"
+    },
+    {
+      "uuid": "{7bc4513c-1f8a-4b24-9b8a-84a4e3c1d43b}",
+      "name": "lint-python",
+      "state": {
+        "name": "COMPLETED",
+        "result": {
+          "name": "SUCCESSFUL"
+        }
+      },
+      "started_on": "2026-10-19T02:38:57.554977536Z",
+      "completed_on": "2026-10-19T02:39:05.55683662Z"
+    },
+    {
+      "uuid": "{c7705afb-e007-4430-84d4-77acc959c7e9}",
+      "name": "plan",
+      "state": {
+        "name": "COMPLETED",
+        "result": {
+          "name": "SUCCESSFUL"
+        }
+      },
+      "started_on": "2026-10-19T02:40:03.809752217Z",
+      "completed_on": "2026-10-19T02:40:39.454019672Z"
+    },
+    {
+      "uuid": "{f421d4bc-0ae7-4395-996a-79dc85256a23}",
+      "name": "apply",
+      "state": {
+        "name": "COMPLETED",
+        "result": {
+          "name": "SUCCESSFUL"
+        }
+      },
+      "started_on": "2026-10-19T02:41:43.900808124Z",
+      "completed_on": "2026-10-19T02:42:30.591529514Z"
+    }
+  ],
+  "page": 1,
+  "pagelen": 5,
+  "size": 5
+}

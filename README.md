@@ -2,7 +2,9 @@
 
 Implementación basada en la [guía del curso UTEC](https://github.com/utec-devops-2026/laboratorios/blob/main/laboratorio_IaC/laboratorio_terraform_bitbucket.md).
 
-**Estado:** código y validaciones locales aprobados; despliegue real AWS ejecutado con Terraform (8 recursos). [API verificada con HTTP 200](https://4ldgqb66wc.execute-api.us-east-1.amazonaws.com/hello?name=UTEC). [Repositorio público Bitbucket](https://bitbucket.org/aarontimana04-devops/bitbucket_terraform_demo/src/main/) creado. La verificación en dos pasos ya está activa. El YAML OIDC ya está sincronizado a Bitbucket. Las capturas de S3, Lambda y API están guardadas. El [pipeline #1](https://bitbucket.org/aarontimana04-devops/bitbucket_terraform_demo/pipelines/results/1) aprobó fmt-check, validate, lint-python y plan; espera la aprobación manual de apply-production y su captura final. Este GitHub es la copia de entrega solicitada.
+**Estado: laboratorio ejecutado y evidencias publicadas.** El [pipeline #1](https://bitbucket.org/aarontimana04-devops/bitbucket_terraform_demo/pipelines/results/1) terminó **SUCCESSFUL**, incluidas las tres validaciones paralelas, plan y aprobación manual de `apply-production`. El despliegue inicial creó 8 recursos; el pipeline actualizó el paquete Lambda (0 altas, 1 cambio, 0 eliminaciones). La [API responde HTTP 200](https://4ldgqb66wc.execute-api.us-east-1.amazonaws.com/hello?name=UTEC). Las cuatro capturas y los logs reales están en [evidencias](evidencias/README.md).
+
+[Repositorio público Bitbucket](https://bitbucket.org/aarontimana04-devops/bitbucket_terraform_demo/src/main/). Este GitHub es la copia de entrega solicitada. La lectura pública permite al docente revisar el código; no se realizó una invitación individual.
 
 ## Archivos
 
@@ -52,9 +54,9 @@ python3 -m venv .venv
 
 Los resultados están en [evidencias/local](evidencias/local). Son validaciones locales: no acreditan que el pipeline o la API AWS hayan corrido.
 
-## Completar Bitbucket y AWS
+## Reproducir el laboratorio
 
-1. Crear o seleccionar el repositorio Bitbucket `bitbucket_terraform_demo`, subir esta misma estructura a `main` y habilitar Pipelines. Registrar su URL y el usuario docente en [el índice de evidencias](evidencias/README.md).
+1. Crear o seleccionar el repositorio Bitbucket `bitbucket_terraform_demo`, subir esta misma estructura a `main` y habilitar Pipelines. El repositorio de esta entrega ya está habilitado y su URL figura en [el índice de evidencias](evidencias/README.md).
 2. Confirmar el usuario Bitbucket y adaptar el nombre del bucket en `backend.hcl`. El bucket `tf-state-aarontimana04-utec` ya está creado, con versionado y acceso público bloqueado; el estado remoto fue verificado.
 3. Con una identidad AWS autorizada, crear el bucket en `us-east-1`, habilitar versionado y bloquear acceso público:
 
@@ -69,7 +71,7 @@ Los resultados están en [evidencias/local](evidencias/local). Son validaciones 
 4. El acceso AWS de este repositorio usa **OIDC**, con un role limitado al UUID del repositorio y los recursos del laboratorio. No requiere guardar claves AWS en Repository variables. La guía usa claves Secured; esta adaptación está documentada en [bootstrap/README.md](bootstrap/README.md).
 5. Revisar `tfplan.txt` y aprobar **Deploy** en `apply-production`. El apply aplica el mismo `tfplan` generado previamente y recibe `lambda.zip` como artifact. El smoke test guarda `hello-aws.json` y verifica `Hello, UTEC!`.
 6. Capturar el pipeline exitoso, el objeto S3 `tf-lambda-demo/terraform.tfstate`, Lambda y la respuesta HTTP real. Agregar las capturas a `evidencias/` y enlazarlas en el índice.
-7. Dar acceso de lectura al usuario Bitbucket del docente indicado en clase.
+7. Mantener acceso de lectura para el docente. En esta entrega se utilizó un repositorio público por solicitud del alumno.
 
 El backend requiere permisos sobre el bucket y sus objetos, incluido `s3:DeleteObject` para liberar `.tflock`. El despliegue necesita permisos para los recursos Lambda, IAM y API Gateway de este laboratorio. El estado, planes binarios, ZIP y credenciales están excluidos del repositorio.
 
@@ -108,4 +110,4 @@ terraform init -reconfigure -backend-config=backend.hcl
 terraform destroy
 ```
 
-El bucket conserva el estado y sus versiones; su eliminación se gestiona aparte. El despliegue inicial fue realizado desde la CLI local; el log real está en `evidencias/aws/terraform-apply.txt`. Los recursos siguen activos para completar las capturas y el pipeline. No se ha ejecutado destroy.
+El bucket conserva el estado y sus versiones; su eliminación se gestiona aparte. El despliegue inicial fue realizado desde la CLI local; el log real está en `evidencias/aws/terraform-apply.txt`. El pipeline también completó el apply y el smoke test HTTP. Los recursos siguen activos para que se pueda revisar la API. No se ha ejecutado destroy.

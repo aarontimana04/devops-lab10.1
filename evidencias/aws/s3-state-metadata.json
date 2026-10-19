@@ -1,10 +1,6 @@
 {
-    "AcceptRanges": "bytes",
-    "LastModified": "2026-10-19T02:08:38+00:00",
-    "ContentLength": 13916,
-    "ETag": "\"08a4e0fc18e0a3afdaaa2e08e5f8fd2c\"",
-    "VersionId": "8BQpPndEsRo3r2zhH315NpY0g5gwxTe.",
-    "ContentType": "application/json",
-    "ServerSideEncryption": "AES256",
-    "Metadata": {}
+    "LastModified": "2026-10-19T02:42:23+00:00",
+    "ContentLength": 13638,
+    "VersionId": "0YCSbfTQDke8FcjQviS_g1ceOuEKTa6w",
+    "ServerSideEncryption": "AES256"
 }
