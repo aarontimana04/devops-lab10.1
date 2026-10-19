@@ -7,9 +7,9 @@
 | Acceso de lectura al docente | Pendiente: falta su usuario Bitbucket | Sin invitación realizada |
 | Estructura del proyecto | Implementada | Archivos de la raíz y `app/handler.py` |
 | Pipeline con validaciones, plan y apply-production ejecutado | Pendiente | No hay captura remota |
-| Bucket S3 y objeto tf-lambda-demo/terraform.tfstate | Pendiente | No hay captura remota |
-| Lambda en AWS | Pendiente | No hay captura remota |
-| API AWS funcionando | Pendiente | No hay captura remota |
+| Bucket S3 y objeto tf-lambda-demo/terraform.tfstate | Creado y objeto remoto verificado | [Metadatos S3](aws/s3-state-metadata.json); captura pendiente |
+| Lambda en AWS | Active; LastUpdateStatus Successful | [Estado real](aws/lambda-status.json); captura pendiente |
+| API AWS funcionando | HTTP 200 y Hello, UTEC! | [Respuesta real](aws/api-response.json); captura pendiente |
 | Validaciones locales adicionales | Aprobadas | [Logs locales](local) |
 
 ## Resultados locales
@@ -26,7 +26,7 @@ Los logs tienen hora UTC y código de salida. No reemplazan las capturas exigida
 
 ## Accesos comprobados
 
-La sesión AWS predeterminada estaba vencida al comenzar. El perfil local alternativo `devops-lab` pudo autenticar, pero recibió `AccessDenied` en `lambda:ListFunctions` y en consultas de políticas IAM. Esos resultados no prueban todos los permisos de creación; tampoco permiten afirmar que el despliegue esté autorizado o ejecutado. No se modificaron permisos IAM.
+La sesión AWS predeterminada estaba vencida al comenzar. El perfil local alternativo `devops-lab` pudo autenticar, pero recibió `AccessDenied` en `lambda:ListFunctions` y en consultas de políticas IAM. Esos resultados no prueban todos los permisos de creación; tampoco permiten afirmar que el despliegue esté autorizado o ejecutado. Tras recuperar el acceso, la sesión predeterminada se renovó y el despliegue inicial se ejecutó desde CLI local: 8 recursos creados. El role de ejecución Lambda se creó mediante Terraform. No se modificaron los permisos del usuario `devops-lab`.
 
 ## Capturas por agregar tras la ejecución real
 

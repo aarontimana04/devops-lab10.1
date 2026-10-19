@@ -1,0 +1,9 @@
+{
+  "checked_at_utc": "2026-10-19T02:08:57.347964+00:00",
+  "url": "https://4ldgqb66wc.execute-api.us-east-1.amazonaws.com/hello?name=UTEC",
+  "http_status": 200,
+  "body": {
+    "message": "Hello, UTEC!",
+    "source": "Lambda puro en Python"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "FunctionName": "tf-lambda-demo",
+    "Runtime": "python3.11",
+    "Handler": "handler.lambda_handler",
+    "State": "Active",
+    "LastUpdateStatus": "Successful"
+}

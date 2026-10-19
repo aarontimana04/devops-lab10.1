@@ -2,7 +2,7 @@
 
 Implementación basada en la [guía del curso UTEC](https://github.com/utec-devops-2026/laboratorios/blob/main/laboratorio_IaC/laboratorio_terraform_bitbucket.md).
 
-**Estado:** código implementado y validación local aprobada. El despliegue AWS, el pipeline Bitbucket y sus capturas siguen pendientes de acceso. Este repositorio GitHub es la copia de entrega solicitada; el PDF exige además una URL Bitbucket y acceso de lectura para el docente.
+**Estado:** código y validaciones locales aprobados; despliegue real AWS ejecutado con Terraform (8 recursos). [API verificada con HTTP 200](https://4ldgqb66wc.execute-api.us-east-1.amazonaws.com/hello?name=UTEC). El pipeline Bitbucket y las capturas se están completando. Este GitHub es la copia de entrega solicitada.
 
 ## Archivos
 
@@ -55,7 +55,7 @@ Los resultados están en [evidencias/local](evidencias/local). Son validaciones 
 ## Completar Bitbucket y AWS
 
 1. Crear o seleccionar el repositorio Bitbucket `bitbucket_terraform_demo`, subir esta misma estructura a `main` y habilitar Pipelines. Registrar su URL y el usuario docente en [el índice de evidencias](evidencias/README.md).
-2. Confirmar el usuario Bitbucket y adaptar el nombre del bucket en `backend.hcl`. El valor actual `tf-state-aarontimana04-utec` es propuesto, no un bucket cuya existencia se haya verificado.
+2. Confirmar el usuario Bitbucket y adaptar el nombre del bucket en `backend.hcl`. El bucket `tf-state-aarontimana04-utec` ya está creado, con versionado y acceso público bloqueado; el estado remoto fue verificado.
 3. Con una identidad AWS autorizada, crear el bucket en `us-east-1`, habilitar versionado y bloquear acceso público:
 
    ```bash
@@ -108,4 +108,4 @@ terraform init -reconfigure -backend-config=backend.hcl
 terraform destroy
 ```
 
-El bucket conserva el estado y sus versiones; su eliminación se gestiona aparte. No hay evidencia de creación ni destrucción remota en esta entrega parcial.
+El bucket conserva el estado y sus versiones; su eliminación se gestiona aparte. El despliegue inicial fue realizado desde la CLI local; el log real está en `evidencias/aws/terraform-apply.txt`. Los recursos siguen activos para completar las capturas y el pipeline. No se ha ejecutado destroy.
