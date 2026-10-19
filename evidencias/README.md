@@ -8,7 +8,7 @@
 | Estructura del proyecto | Implementada | Archivos de la raíz y `app/handler.py` |
 | Pipeline con validaciones, plan y apply-production ejecutado | YAML OIDC sincronizado; falta habilitar Pipelines y ejecutarlo | No hay ejecución remota ni captura de éxito |
 | Bucket S3 y objeto tf-lambda-demo/terraform.tfstate | Creado y objeto remoto verificado | [Metadatos S3](aws/s3-state-metadata.json) y [captura](https://github.com/aarontimana04/devops-lab10.1/blob/main/evidencias/02-s3-estado.png) |
-| Lambda en AWS | Active; LastUpdateStatus Successful | [Estado real](aws/lambda-status.json); captura pendiente |
+| Lambda en AWS | Active; LastUpdateStatus Successful | [Estado real](aws/lambda-status.json) y [captura](https://github.com/aarontimana04/devops-lab10.1/blob/main/evidencias/03-lambda.png) |
 | API AWS funcionando | HTTP 200 y Hello, UTEC! | [Respuesta real](aws/api-response.json) y [captura](https://github.com/aarontimana04/devops-lab10.1/blob/main/evidencias/04-api.png) |
 | Validaciones locales adicionales | Aprobadas | [Logs locales](local) |
 
